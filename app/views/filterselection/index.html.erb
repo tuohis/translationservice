@@ -1,0 +1,19 @@
+<h1>Translation list options</h1>
+<form action="translations" method="get">
+<table>
+  <tr>
+    <td>Select Language: </td>
+    <td><select name="language"><option value="en">English</option><option value="fi">Finnish</option><option value="se">Swedish</select></td>
+  </tr>
+  <tr>
+    <td>Show: </td>
+    <td>
+      <input type="radio" name="filter" value="all"/> All<br/>
+      <input type="radio" name="filter" value="translated"/> Translated<br/>
+      <input type="radio" name="filter" value="untranslated"/> Untranslated<br/>
+      <input type="radio" name="filter" value="modified"/> Modified<br/>
+    </td>
+  </tr>
+  <tr><td colspan=2><input type="submit" value="Submit"/></td></tr>
+</table>
+</form>
