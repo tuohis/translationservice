@@ -1,0 +1,17 @@
+<h1>Translations</h1>
+
+<table>
+   <tr>
+     <th>Text ID</th>
+     <th>Language</th>
+     <th>Text</th>
+   </tr>
+   
+   <% @translations.each do |translation| %>
+   <tr>
+     <td><%= translation.text_id %></td>
+     <td><%= translation.language %></td>
+     <td><%= translation.text %></td>
+   </tr>
+   <% end %>
+</table>

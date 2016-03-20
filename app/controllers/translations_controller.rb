@@ -13,6 +13,10 @@ def show
   @translation = Translation.find(params[:id])
 end
 
+def index
+  @translations = Translation.all
+end
+
 private
 def translation_params
   params.require(:translation).permit(:text_id, :language, :text)
