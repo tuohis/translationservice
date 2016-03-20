@@ -1,7 +1,7 @@
-<%= form_for :translation do |f| %>
+<%= form_for :translation, url: translations_path do |f| %>
   <p>
-    <%= f.label :id %><br/>
-    <%= f.text_field :id %>
+    <%= f.label :text_id %><br/>
+    <%= f.text_field :text_id %>
   </p>
   <p>
     <%= f.label :language %><br/>
@@ -11,4 +11,5 @@
     <%= f.label :text %><br/>
     <%= f.text_field :text %>
   </p>
+  <p><%= f.submit %></p>
 <% end %>
