@@ -12,19 +12,16 @@
    <tr id="<%= tr_id %>">
      <td class="idContainer"><%= translation.text_id %></td>
      <td class="languageContainer"><%= translation.language %></td>
-     <td class="translationContainer">
-       <span class="translationText"><%= translation.text %></span>
+     <td>
+       <div class="translationContainer">
+         <span class="translationText"><%= translation.text %></span>
+       </div>
+       <div class="editContainer">
+         <%= hidden_field_tag "id",      translation.id,   :class => "idHolder" %>
+         <%= text_field_tag   "newText", translation.text, :class => "translationInput" %>
+      </div>
      </td>
-     <td class="editContainer">
-       <%= form_for :translation, url: "#", :html => {:method => :get, :onsubmit => "saveTranslation('#{translation.id}', '#{translation.language}')"} do |f| %>
-         <%= f.hidden_field :id, :class => "idHolder", :value => translation.id %>
-         <%= f.hidden_field :text_id, :value => translation.text_id %>
-         <%= f.hidden_field :language, :value => translation.language %>
-         <%= f.text_field :text, :class => "translationInput", :value => translation.text %>
-         <!--<%= f.button :value => "Save", :type => "button", :class => "save", :text => "Save" %>-->
-       <% end %>
-     </td>
-     <td class="buttonContainer">
+     <td class="feedbackContainer">
        <input type="button" class="edit" value="Edit"/>
        <input type="button" class="save" value="Save"/>
        <img class="success" alt="Save operation successful" src="success.png"/>

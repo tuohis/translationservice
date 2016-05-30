@@ -4,9 +4,16 @@ def new
 end
 
 def create
-  @translation = Translation.new(translation_params)
-  @translation.save
-  redirect_to @translation
+  if !params[:language]
+    Translation.languages.each do |l|
+      translation_params[:language] = l
+      @translation = Translation.new(translation_params)
+      @translation.save
+    end
+  else
+    @translation = Translation.new(translation_params)
+    redirect_to @translation if @translation.save
+  end
 end
 
 def show
