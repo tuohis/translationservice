@@ -1,3 +1,10 @@
 // Place all the styles related to the translations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+img.success { display: none; }
+img.fail { display: none; }
+.idContainer {}
+.languageContainer { text-align: center; }
+.translationContainer { min-width: 10em; max-width: 40em; }
+.editContainer { min-width: 10em; max-width: 40em; display: none; }
+.save {display: none}

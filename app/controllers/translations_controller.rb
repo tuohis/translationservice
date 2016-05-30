@@ -13,6 +13,14 @@ def show
   @translation = Translation.find(params[:id])
 end
 
+def edit
+  @translation = Translation.find(params[:id])
+  #@translation = Translation.where(:text_id => params[:text_id]).where(:language => params[:language]).first
+  @translation.text = params[:text]
+  @translation.save
+  redirect_to @translation unless params[:api]
+end
+
 def index
   @translations = Translation.all
 end
