@@ -5,6 +5,6 @@ img.success { display: none; }
 img.fail { display: none; }
 .idContainer {}
 .languageContainer { text-align: center; }
-.translationContainer { min-width: 10em; max-width: 40em; }
-.editContainer { min-width: 10em; max-width: 40em; display: none; }
+.translationContainer { min-width: 10em; max-width: 40em; display: block; }
+.editContainer { min-width: 10em; max-width: 40em; display: block; display: none; }
 .save {display: none}

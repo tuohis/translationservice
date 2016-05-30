@@ -4,16 +4,33 @@
 
 #$("button.edit").click () -> alert "Handler for click() called"
 
+baseSelector = (rootElement) -> "#" + rootElement.id
+
+getElement = (rootElement, classStr) ->
+  return $(baseSelector(rootElement) + " ." + classStr)
+
+getForm = (rootElement) ->
+  return getElement(rootElement, "editContainer")
 getWait = (rootElement) ->
-  return $("#" + rootElement.id + " .wait")
+  return getElement(rootElement, "wait")
 getSuccess = (rootElement) ->
-  return $("#" + rootElement.id + " .success")
+  return getElement(rootElement, "success")
 getFail = (rootElement) ->
-  return $("#" + rootElement.id + " .fail")
+  return getElement(rootElement, "fail")
 getSave = (rootElement) ->
-  return $("#" + rootElement.id + " .save")
+  return getElement(rootElement, "save")
 getEdit = (rootElement) ->
-  return $("#" + rootElement.id + " .edit")
+  return getElement(rootElement, "edit")
+getId = (rootElement) ->
+  return getElement(rootElement, "idHolder")[0]
+getLanguage = (rootElement) ->
+  return getElement(rootElement, "languageContainer")
+getTextId = (rootElement) ->
+  return getElement(rootElement, "idContainer")
+getText = (rootElement) ->
+  return getElement(rootElement, "translationText")
+getNewText = (rootElement) ->
+  return getElement(rootElement, "translationInput")[0]
 
 parentTr = (element) ->
   return element if element.nodeName is 'TR' || element is null
@@ -21,36 +38,20 @@ parentTr = (element) ->
 
 editTranslation = (event) ->
   rowElement = parentTr(event.toElement)
-  elementId = rowElement.id
-
-  translationId = $("#" + elementId + " > .idContainer").text()
-  language = $("#" + elementId + " > .languageContainer").text()
-  #textElement = $("#" + elementId + " > .translationContainer")
-  formElement = $("#" + elementId + " > .editContainer")
-  #buttonElement = $("#" + elementId + " > .buttonContainer")
-  #buttonElement.hide()
   $(".edit").hide() # Hide all edit buttons -> edit only one at a time
   getSuccess(rowElement).hide()
   getFail(rowElement).hide()
-  #textElement.hide()
-  formElement.show()
-  $("#" + elementId + " > .buttonContainer > .save").show()
+  getForm(rowElement).show()
+  getSave(rowElement).show()
 
 saveTranslation = (event) ->
   rowElement = parentTr(event.toElement)
-  elementId = rowElement.id
-  selectorBase = "#" + elementId + " "
-  id = $(selectorBase + ".idHolder")[0].value
-  textId = $(selectorBase + ".idContainer").text()
-  language = $(selectorBase + ".languageContainer").text()
-  text = $(selectorBase + ".translationInput")[0].value
-  textElement = $(selectorBase + ".translationText")
-  formElement = $(selectorBase + ".editContainer")
   $(".save").hide()
   getFail(rowElement).hide()
   getWait(rowElement).show()
+  text = getNewText(rowElement).value
   $.ajax
-    url: "/translations/" + id + "/edit"
+    url: "/translations/" + getId(rowElement).value + "/edit"
     type: "get"
     dataType: 'html'
     data: { 'api' : 1, 'text' : text }
@@ -62,9 +63,9 @@ saveTranslation = (event) ->
     success: (data, textStatus, jqHXR) ->
       getWait(rowElement).hide()
       getSuccess(rowElement).show()
-      formElement.hide()
-      textElement.html(text)
-      #textElement.show()
+      getForm(rowElement).hide()
+      console.log(getText(rowElement))
+      getText(rowElement).html(text)
       $(".edit").show()
 
 
