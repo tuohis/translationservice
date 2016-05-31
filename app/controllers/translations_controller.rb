@@ -34,7 +34,15 @@ end
 
 def index
   if params[:languages]
-    @translations = Translation.where(:language => params[:languages])
+    @translations = Translation.select("translations.*, originals.text as original")
+      .from("translations, translations as originals").where("translations.text_id = originals.text_id")
+      .where("originals.language = 'en'")
+      .where("translations.language = ?", params[:languages])
+    #@originals = Translation.where(:language => 'en')
+    #@translations = Translation.where(:language => params[:languages])
+    #@translations.each do |t|
+    #  t.original = @originals.where(:text_id => t.text_id).first().text
+    #end
   else
     @translations = Translation.all
   end
