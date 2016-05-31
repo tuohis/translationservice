@@ -4,11 +4,11 @@
 <table>
   <tr>
     <td>Select Language: </td>
-    <td><ul><% Translation.languages.each do |l| %>
-      <li><input type="checkbox" name="languages[]" value="<%= l %>" /><%= l %></li>
+    <td><% Translation.languages.each do |l| %>
+      <input type="checkbox" name="languages[]" value="<%= l %>" /><%= l %><br/>
       <% end %>
-      <li><input type="checkbox" name="" id="checkbox_all"/>All</li>
-    </ul></td>
+      <input type="checkbox" name="" id="checkbox_all"/>All
+    </td>
     <!--<td><select name="language"><option value="en">English</option><option value="fi">Finnish</option><option value="se">Swedish</select></td>-->
   </tr>
   <tr>
@@ -17,7 +17,6 @@
       <input type="radio" name="filter" value="all"/> All<br/>
       <input type="radio" name="filter" value="translated"/> Translated<br/>
       <input type="radio" name="filter" value="untranslated"/> Untranslated<br/>
-      <input type="radio" name="filter" value="modified"/> Modified<br/>
     </td>
   </tr>
   <tr><td colspan=2><input type="submit" value="Submit"/></td></tr>
