@@ -19,8 +19,8 @@
      <td class="feedbackContainer">
        <input type="button" class="edit" value="Edit"/>
        <input type="button" class="save" value="Save"/>
-       <img class="success" alt="Save operation successful" src="success.png"/>
-       <img class="fail" alt="Save operation failed" src="fail.png"/>
+       <%= image_tag "success.png", alt: "Success", class: "success", width: "16" %>
+       <%= image_tag "fail.png", alt: "Failure", class: "fail", width: "16" %>
    </tr>
    <% end %>
 </table>
