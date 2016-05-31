@@ -1,2 +1,7 @@
+<% if @error %>
 <h1>Error when inserting to database!</h1>
 <h2>Probably the specified text-id - language combination exists already.</h2>
+<% else %>
+<h1>Newly created translations (<%= @translations.count %>)</h1>
+<%= render 'translationList' %>
+<% end %>

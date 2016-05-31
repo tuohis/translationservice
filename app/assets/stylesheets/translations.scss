@@ -7,4 +7,8 @@ img.fail { display: none; }
 .languageContainer { text-align: center; }
 .translationContainer { min-width: 10em; max-width: 40em; display: block; }
 .editContainer { min-width: 10em; max-width: 40em; display: block; display: none; }
+.editContainer input { width: 100% }
 .save {display: none}
+
+tr.even { background-color: #EEEEEE }
+tr.odd { background-color: #CCCCCC }

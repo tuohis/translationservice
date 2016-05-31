@@ -5,16 +5,18 @@ end
 
 def create
   if all_languages
+    @translations = []
     Translation.languages.each do |l|
       creation_params = translation_params
       creation_params[:language] = l
       @translation = Translation.new(creation_params)
       @translation.save!
+      @translations << @translation
     end
-    redirect_to action: "index"
   else
     @translation = Translation.new(translation_params)
-    redirect_to @translation if @translation.save!
+    @translation.save!
+    @translations = [@translation]
   end
 end
 

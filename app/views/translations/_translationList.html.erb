@@ -1,0 +1,26 @@
+<table>
+   <tr>
+     <th>Text ID</th>
+     <th>Language</th>
+     <th>Text</th>
+   </tr>
+
+   <% @translations.each do |translation| %>
+   <% tr_id = "#{translation.text_id}_#{translation.language}" %>
+   <tr id="<%= tr_id %>" class="<%= cycle('even','odd') %>">
+     <td class="idContainer"><%= translation.text_id %></td>
+     <td class="languageContainer"><%= translation.language %></td>
+     <td>
+       <div class="translationContainer">
+         <span class="translationText"><%= translation.text %></span>
+       </div>
+       <%= render 'editContainer', translation: translation %>
+     </td>
+     <td class="feedbackContainer">
+       <input type="button" class="edit" value="Edit"/>
+       <input type="button" class="save" value="Save"/>
+       <img class="success" alt="Save operation successful" src="success.png"/>
+       <img class="fail" alt="Save operation failed" src="fail.png"/>
+   </tr>
+   <% end %>
+</table>
