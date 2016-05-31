@@ -16,7 +16,7 @@ def create
   else
     @translation = Translation.new(translation_params)
     @translation.save!
-    @translations = [@translation]
+    @translations << @translation
   end
 end
 
@@ -26,9 +26,10 @@ end
 
 def edit
   @translation = Translation.find(params[:id])
-  #@translation = Translation.where(:text_id => params[:text_id]).where(:language => params[:language]).first
-  @translation.text = params[:text]
-  @translation.save
+  if @translation.text != params[:text]
+    @translation.text = params[:text]
+    @translation.save!
+  end
   redirect_to @translation unless params[:api]
 end
 
