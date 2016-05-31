@@ -4,15 +4,17 @@ def new
 end
 
 def create
-  if !params[:language]
+  if all_languages
     Translation.languages.each do |l|
-      translation_params[:language] = l
-      @translation = Translation.new(translation_params)
-      @translation.save
+      creation_params = translation_params
+      creation_params[:language] = l
+      @translation = Translation.new(creation_params)
+      @translation.save!
     end
+    redirect_to action: "index"
   else
     @translation = Translation.new(translation_params)
-    redirect_to @translation if @translation.save
+    redirect_to @translation if @translation.save!
   end
 end
 
@@ -33,6 +35,10 @@ def index
 end
 
 private
+def all_languages
+  params.require(:translation).permit(:all_languages)[:all_languages]
+end
+
 def translation_params
   params.require(:translation).permit(:text_id, :language, :text)
 end
