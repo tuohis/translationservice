@@ -1,9 +1,15 @@
 <h1>Translation list options</h1>
+
 <form action="translations" method="get">
 <table>
   <tr>
     <td>Select Language: </td>
-    <td><select name="language"><option value="en">English</option><option value="fi">Finnish</option><option value="se">Swedish</select></td>
+    <td><ul><% Translation.languages.each do |l| %>
+      <li><input type="checkbox" name="languages[]" value="<%= l %>" /><%= l %></li>
+      <% end %>
+      <li><input type="checkbox" name="" id="checkbox_all"/>All</li>
+    </ul></td>
+    <!--<td><select name="language"><option value="en">English</option><option value="fi">Finnish</option><option value="se">Swedish</select></td>-->
   </tr>
   <tr>
     <td>Show: </td>

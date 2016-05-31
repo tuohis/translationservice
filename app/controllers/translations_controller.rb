@@ -33,7 +33,11 @@ def edit
 end
 
 def index
-  @translations = Translation.all
+  if params[:languages]
+    @translations = Translation.where(:language => params[:languages])
+  else
+    @translations = Translation.all
+  end
 end
 
 private
