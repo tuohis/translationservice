@@ -8,7 +8,7 @@
    <% @translations.each do |translation| %>
    <% tr_id = "#{translation.text_id}_#{translation.language}" %>
    <tr id="<%= tr_id %>" class="<%= cycle('even','odd') %>">
-     <td class="idContainer"><%= translation.text_id %></td>
+     <td class="idContainer"><%= link_to translation.text_id, translation %></td>
      <td class="languageContainer"><%= translation.language %></td>
      <td>
        <div class="translationContainer">

@@ -10,3 +10,11 @@
   <strong>Text:</strong>
   <%= @translation.text %>
 </p>
+<p>
+  <strong>History:</strong>
+  <ul>
+    <% @translation.translation_histories.all.each do |h| %>
+    <li><%= h.created_at %> <%= h.text %>
+    <% end %>
+  </ul>
+</p>

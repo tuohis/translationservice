@@ -8,6 +8,6 @@ class Translation < ActiveRecord::Base
     message: "Language '%{value}' not recognized" }
   validates :text_id, uniqueness: { scope: :language,
     message: "The entry %{value} already exists for given language" }
-
+  has_many :translation_histories
 
 end

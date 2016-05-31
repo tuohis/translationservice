@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320190243) do
+ActiveRecord::Schema.define(version: 20160531160652) do
+
+  create_table "translation_histories", force: :cascade do |t|
+    t.integer  "translation_id"
+    t.string   "text"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "translation_histories", ["translation_id"], name: "index_translation_histories_on_translation_id"
 
   create_table "translations", force: :cascade do |t|
     t.string   "text_id"

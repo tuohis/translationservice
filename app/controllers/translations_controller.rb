@@ -27,6 +27,8 @@ end
 def edit
   @translation = Translation.find(params[:id])
   if @translation.text != params[:text]
+    translationHistory = @translation.translation_histories.create({:text=>@translation.text})
+    translationHistory.save!
     @translation.text = params[:text]
     @translation.save!
   end
