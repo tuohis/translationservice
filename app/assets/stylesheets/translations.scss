@@ -6,9 +6,11 @@ img.fail { display: none; }
 .idContainer {}
 .languageContainer { text-align: center; }
 .translationContainer { min-width: 10em; max-width: 40em; display: block; }
+.originalText { font-style: italic; }
 .editContainer { min-width: 10em; max-width: 40em; display: block; display: none; }
 .editContainer input { width: 100% }
-.save {display: none}
-
+.buttonContainer { vertical-align: bottom; }
+input.save { display: none }
+input.cancel { display: none }
 tr.even { background-color: #EEEEEE }
 tr.odd { background-color: #CCCCCC }

@@ -19,6 +19,8 @@ getFail = (rootElement) ->
   return getElement(rootElement, "fail")
 getSave = (rootElement) ->
   return getElement(rootElement, "save")
+getCancel = (rootElement) ->
+  return getElement(rootElement, "cancel")
 getEdit = (rootElement) ->
   return getElement(rootElement, "edit")
 getId = (rootElement) ->
@@ -36,6 +38,13 @@ parentTr = (element) ->
   return element if element.nodeName is 'TR' || element is null
   return parentTr(element.parentElement)
 
+cancelEdit = (event) ->
+  rowElement = parentTr(event.toElement)
+  getForm(rowElement).hide()
+  getSave(rowElement).hide()
+  getCancel(rowElement).hide()
+  $(".edit").show()
+
 editTranslation = (event) ->
   rowElement = parentTr(event.toElement)
   $(".edit").hide() # Hide all edit buttons -> edit only one at a time
@@ -43,10 +52,12 @@ editTranslation = (event) ->
   getFail(rowElement).hide()
   getForm(rowElement).show()
   getSave(rowElement).show()
+  getCancel(rowElement).show()
 
 saveTranslation = (event) ->
   rowElement = parentTr(event.toElement)
   $(".save").hide()
+  getCancel(rowElement).hide()
   getFail(rowElement).hide()
   getWait(rowElement).show()
   text = getNewText(rowElement).value
@@ -59,6 +70,7 @@ saveTranslation = (event) ->
       getWait(rowElement).hide()
       getFail(rowElement).show()
       getSave(rowElement).show()
+      getCancel(rowElement).show()
       alert(textStatus)
     success: (data, textStatus, jqHXR) ->
       getWait(rowElement).hide()
@@ -72,3 +84,4 @@ saveTranslation = (event) ->
 $(document).on 'ready page:load', ->
   $(".edit").click (event) -> editTranslation(event)
   $(".save").click (event) -> saveTranslation(event)
+  $(".cancel").click (event) -> cancelEdit(event)
