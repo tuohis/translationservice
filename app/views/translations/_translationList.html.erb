@@ -11,10 +11,7 @@
      <td class="idContainer"><%= link_to translation.text_id, translation %></td>
      <td class="languageContainer"><%= translation.language %></td>
      <td>
-       <div class="translationContainer">
-         <span class="originalText"><%= translation.original %></span><br/>
-         <span class="translationText"><%= translation.text %></span>
-       </div>
+       <%= render 'translationContainer', translation: translation %>
        <%= render 'editContainer', translation: translation %>
      </td>
      <td class="buttonContainer">
