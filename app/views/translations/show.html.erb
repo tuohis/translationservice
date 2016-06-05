@@ -1,21 +1,16 @@
-<p>
-  <strong>Text ID:</strong>
-  <%= @translation.text_id %>
-</p>
-<p>
-  <strong>Language:</strong>
-  <%= @translation.language %>
-</p>
-<p>
-  <strong>Text:</strong>
-  <%= render 'translationContainer', translation: @translation %>
-  <%= render 'editContainer', translation: @translation %>
-</p>
+<table>
+  <tr>
+    <th>Text ID</th>
+    <th>Language</th>
+    <th>Text</th>
+  </tr>
+  <%= render 'translationListRow', translation: @translation %>
+</table>
 <p>
   <strong>History:</strong>
   <ul>
-    <% @translation.translation_histories.all.each do |h| %>
-    <li><%= h.created_at %> <%= h.text %>
+    <% @translation.translation_histories.all.reverse.each do |h| %>
+    <li><%= h.created_at %> | <%= h.text %>
     <% end %>
   </ul>
 </p>

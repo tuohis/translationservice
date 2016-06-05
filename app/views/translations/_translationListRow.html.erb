@@ -1,0 +1,15 @@
+<% tr_id = "#{translation.text_id}_#{translation.language}" %>
+<tr id="<%= tr_id %>" class="<%= cycle('even','odd') %>">
+  <td class="idContainer"><%= link_to translation.text_id, translation %></td>
+  <td class="languageContainer"><%= translation.language %></td>
+  <td>
+    <%= render 'translationContainer', translation: translation %>
+    <%= render 'editContainer', translation: translation %>
+  </td>
+  <td class="buttonContainer">
+    <input type="button" class="edit" value="Edit"/>
+    <input type="button" class="save" value="Save"/>
+    <input type="button" class="cancel" value="Cancel"/>
+    <%= image_tag "success.png", alt: "Success", class: "success", width: "16" %>
+    <%= image_tag "fail.png", alt: "Failure", class: "fail", width: "16" %>
+</tr>
