@@ -46,7 +46,7 @@ def index
     .from("translations, translations as originals").where("translations.text_id = originals.text_id")
     .where("originals.language = 'en'")
   if params[:languages]
-    @translations = @translations.where("translations.language = ?", params[:languages])
+    @translations = @translations.where("translations.language IN (?)", params[:languages])
   end
   if params[:filter] == 'untranslated'
     @translations = @translations.where("translations.text LIKE originals.text")
