@@ -20,14 +20,35 @@ def create
   end
 end
 
+def is_number? string
+  true if Float(string) rescue false
+end
+
 def show
+  if is_number?(params[:id])
+    show_by_id(params[:id])
+  else
+    show_by_text_id(params[:id])
+  end
+end
+
+def show_by_id(id)
   #@translation = Translation.find(params[:id])
   @translation = Translation.select("translations.*, originals.text as original")
     .from("translations, translations as originals")
-    .where("translations.id = #{params[:id]}")
+    .where("translations.id = #{id}")
     .where("translations.text_id = originals.text_id")
     .where("originals.language = 'en'")
     .first()
+end
+
+def show_by_text_id(id)
+  @translations = Translation.select("translations.*, originals.text as original")
+    .from("translations, translations as originals")
+    .where("translations.text_id = '#{id}'")
+    .where("translations.text_id = originals.text_id")
+    .where("originals.language = 'en'")
+  render "show_all_languages"
 end
 
 def edit

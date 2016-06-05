@@ -1,11 +1,5 @@
-<table>
-  <tr>
-    <th>Text ID</th>
-    <th>Language</th>
-    <th>Text</th>
-  </tr>
-  <%= render 'translationListRow', translation: @translation %>
-</table>
+<%= render 'translationList', translations: [@translation] %>
+<%= link_to "Show all languages", @translation.text_id %>
 <p>
   <strong>History:</strong>
   <table id="history">
