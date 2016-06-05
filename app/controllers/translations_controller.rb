@@ -21,7 +21,13 @@ def create
 end
 
 def show
-  @translation = Translation.find(params[:id])
+  #@translation = Translation.find(params[:id])
+  @translation = Translation.select("translations.*, originals.text as original")
+    .from("translations, translations as originals")
+    .where("translations.id = #{params[:id]}")
+    .where("translations.text_id = originals.text_id")
+    .where("originals.language = 'en'")
+    .first()
 end
 
 def edit

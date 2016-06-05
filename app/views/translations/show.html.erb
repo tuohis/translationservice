@@ -8,7 +8,8 @@
 </p>
 <p>
   <strong>Text:</strong>
-  <%= @translation.text %>
+  <%= render 'translationContainer', translation: @translation %>
+  <%= render 'editContainer', translation: @translation %>
 </p>
 <p>
   <strong>History:</strong>
