@@ -8,9 +8,15 @@
 </table>
 <p>
   <strong>History:</strong>
-  <ul>
+  <table id="history">
+    <tr>
+      <th>Replaced at</th>
+      <th>Text</th>
+    </tr>
     <% @translation.translation_histories.all.reverse.each do |h| %>
-    <li><%= h.created_at %> | <%= h.text %>
+    <tr class="<%= cycle('even','odd') %>">
+      <td><%= h.created_at %></td><td><%= h.text %></td>
+    </tr>
     <% end %>
-  </ul>
+  </table>
 </p>
