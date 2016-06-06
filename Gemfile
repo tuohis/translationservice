@@ -23,6 +23,12 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Time zone info required on Windows
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+# Coffeescript doesn't play well on Windows. Try this:
+gem 'coffee-script-source', '1.8.0', platforms: [:mingw, :mswin, :x64_mingw]
+
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
