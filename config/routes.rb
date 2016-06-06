@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'filterselection#index'
   
+  get 'import' => 'translations#import'
+  post 'upload_res_file' => 'translations#upload_res_file'
   #get 'list/:language/:filter' => 'translationlist#view'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

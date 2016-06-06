@@ -76,7 +76,64 @@ def index
   end
 end
 
+def import
+  render 'import'
+end
+
+def upload_res_file
+  uploaded_io = params[:res_file]
+  file_type = params[:file_type]
+  filename = uploaded_io.original_filename
+  data = uploaded_io.read
+  save_upload_to_file(data, filename)
+  @translations = create_translations_from_upload(data, file_type)
+  render 'index'
+end
+
 private
+def save_upload_to_file(data, filename)
+  target_dir = Rails.root.join('public', 'uploads')
+  FileUtils.mkdir_p(target_dir) unless File.directory?(target_dir)
+  File.open(timestamp_filename(target_dir.join(filename)), 'wb') do |file|
+    file.write(data)
+  end
+end
+
+def create_translations_from_upload(data, file_type)
+  raise "Unknown file format" unless file_type == "res"
+  
+  text_type = ""
+  text_id = ""
+  translation_language_matcher = "(#{Translation.languages.collect{|l| "(#{l.upcase})"}.join('|')})"
+  translations = []
+  data.force_encoding('UTF-8').lines.each do |line|
+    if line =~ /__TEXT_([A-Z0-9_]+)/
+      text_type = $1
+    elsif line =~ /__TAG__\(([A-Za-z0-9_-]+)\)/
+      text_id = $1
+      p text_id
+    #elsif line =~ /#{Regexp.escape translation_language_matcher}/
+  elsif line =~ /(.*), +\/\* #{translation_language_matcher} \*\//
+      params[:translation] = {}
+      params[:translation][:text_id] = text_id
+      params[:translation][:text] = $1
+      params[:translation][:language] = $2.downcase
+      translation = Translation.new(translation_params)
+      translation.save!
+      translations << translation
+    end
+  end
+  translations
+end
+
+def timestamp_filename(file)
+  dir  = File.dirname(file)
+  base = File.basename(file, ".*")
+  time = Time.now.strftime "%Y-%m-%d_%H%M%S"  # or format however you like
+  ext  = File.extname(file)
+  File.join(dir, "#{base}_#{time}#{ext}")
+end
+
 def all_languages
   params.require(:translation).permit(:all_languages)[:all_languages]
 end

@@ -1,0 +1,5 @@
+<%= form_tag({action: :upload_res_file}, multipart: true) do %>
+  <%= hidden_field_tag 'file_type', 'res' %>
+  <%= file_field_tag 'res_file' %>
+  <%= submit_tag("Upload") %>
+<% end %>
