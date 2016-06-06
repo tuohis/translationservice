@@ -1,3 +1,4 @@
+require 'file_parser'
 class TranslationsController < ApplicationController
 
 def new
@@ -101,40 +102,15 @@ end
 
 def create_translations_from_upload(data, file_type)
   raise "Unknown file format" unless file_type == "res"
-  
-  text_type = ""
-  text_id = ""
-  translation_language_matcher = "(#{Translation.languages.collect{|l| "(#{l.upcase})"}.join('|')})"
   translations = []
-  data.force_encoding('UTF-8').lines.each do |line|
-    if line =~ /__TEXT_([A-Z0-9_]+)/
-      text_type = $1
-    elsif line =~ /__TAG__\(([A-Za-z0-9_-]+)\)/
-      text_id = $1
-      p text_id
-    #elsif line =~ /#{Regexp.escape translation_language_matcher}/
-  elsif line =~ /(.*), +\/\* #{translation_language_matcher} \*\//
-      params[:translation] = {}
-      params[:translation][:text_id] = text_id
-      params[:translation][:text] = format_translation_from_res($1)
-      params[:translation][:language] = $2.downcase
-      translation = Translation.new(translation_params)
-      translation.save!
-      translations << translation
-    end
+  parser = ::FileParser.new()
+  parser.parse_each(data) do |t| 
+    params[:translation] = t
+    translation = Translation.new(translation_params)
+    translation.save!
+    translations << translation
   end
   translations
-end
-
-def format_translation_from_res(text, is_inside_quotes=false)
-  return "" if text.empty?
-  pieces = text.partition('"')
-  if is_inside_quotes
-    forepart = pieces[0]
-  else
-    forepart = pieces[0].strip.split(' ').collect{|p| "{#{p}}"}.join('')
-  end
-  forepart + format_translation_from_res(pieces[2], !is_inside_quotes)
 end
 
 def timestamp_filename(file)
